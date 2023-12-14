@@ -3,18 +3,31 @@ import "./StarRating.css";
 import { FaStar, FaRegStar } from "react-icons/fa6";
 
 interface Props {
-  maxRating?: number;
+  maxRating: number;
+  color: string;
+  size: number;
 }
 
-const StarRating = ({ maxRating = 10 }: Props) => {
+const StarRating = ({
+  maxRating = 10,
+  color = "#FFBB00",
+  size = 24,
+}: Props) => {
   const [rating, setRating] = useState(0);
   const [tempRating, setTempRating] = useState(0);
+
+  const textStyle = {
+    lineHeight: "1",
+    margin: "0",
+    color,
+    fontSize: `${size / 1.5}px`,
+  };
 
   return (
     <div className="stars-rating-container">
       <div className="stars-container">
         {Array.from({ length: maxRating }, (_, i) => {
-          const isStarFilled = tempRating
+          const isStarFilled: boolean = tempRating
             ? tempRating >= i + 1
             : rating >= i + 1;
 
@@ -26,12 +39,16 @@ const StarRating = ({ maxRating = 10 }: Props) => {
               onMouseEnter={() => setTempRating(i + 1)}
               onMouseLeave={() => setTempRating(0)}
             >
-              {isStarFilled ? <FaStar /> : <FaRegStar />}
+              {isStarFilled ? (
+                <FaStar color={color} size={size} />
+              ) : (
+                <FaRegStar color={color} size={size} />
+              )}
             </button>
           );
         })}
       </div>
-      <p className="stars-text">{rating || ""}</p>
+      <p style={textStyle}>{tempRating || rating || ""}</p>
     </div>
   );
 };

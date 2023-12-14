@@ -4,6 +4,8 @@ import StarRating from "./components/StarRating";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <StarRating maxRating={10} />
+    <StarRating />
+    <StarRating maxRating={5} color="red" size={48} />
+    <StarRating maxRating={12} size={12} />
   </React.StrictMode>
 );
