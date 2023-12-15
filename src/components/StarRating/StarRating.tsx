@@ -6,14 +6,20 @@ interface Props {
   maxRating: number;
   color: string;
   size: number;
+  className: string;
+  messages: string[];
+  defaultRating: number;
 }
 
 const StarRating = ({
   maxRating = 10,
   color = "#FFBB00",
   size = 24,
+  className = "default",
+  messages = [],
+  defaultRating = 0,
 }: Props) => {
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(defaultRating);
   const [tempRating, setTempRating] = useState(0);
 
   const textStyle = {
@@ -24,7 +30,7 @@ const StarRating = ({
   };
 
   return (
-    <div className="stars-rating-container">
+    <div className={className}>
       <div className="stars-container">
         {Array.from({ length: maxRating }, (_, i) => {
           const isStarFilled: boolean = tempRating
@@ -48,7 +54,11 @@ const StarRating = ({
           );
         })}
       </div>
-      <p style={textStyle}>{tempRating || rating || ""}</p>
+      <p style={textStyle}>
+        {messages.length === maxRating
+          ? messages[tempRating ? tempRating - 1 : rating - 1]
+          : tempRating || rating || ""}
+      </p>
     </div>
   );
 };

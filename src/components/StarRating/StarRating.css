@@ -1,7 +1,13 @@
-.stars-rating-container {
+.default {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
+}
+
+.custom {
+  display: flex;
+  align-items: center;
+  gap: 70px;
 }
 
 .stars-container {
