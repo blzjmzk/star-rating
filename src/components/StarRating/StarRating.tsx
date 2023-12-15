@@ -3,12 +3,13 @@ import "./StarRating.css";
 import { FaStar, FaRegStar } from "react-icons/fa6";
 
 interface Props {
-  maxRating: number;
-  color: string;
-  size: number;
-  className: string;
-  messages: string[];
-  defaultRating: number;
+  maxRating?: number;
+  color?: string;
+  size?: number;
+  className?: string;
+  messages?: string[];
+  defaultRating?: number;
+  onSetRating?: (rating: number) => void;
 }
 
 const StarRating = ({
@@ -18,11 +19,17 @@ const StarRating = ({
   className = "default",
   messages = [],
   defaultRating = 0,
+  onSetRating,
 }: Props) => {
-  const [rating, setRating] = useState(defaultRating);
-  const [tempRating, setTempRating] = useState(0);
+  const [rating, setRating] = useState<number>(defaultRating);
+  const [tempRating, setTempRating] = useState<number>(0);
 
-  const textStyle = {
+  const handleRating = (rating: number) => {
+    setRating(rating);
+    onSetRating && onSetRating(rating);
+  };
+
+  const textStyle: React.CSSProperties = {
     lineHeight: "1",
     margin: "0",
     color,
@@ -41,7 +48,7 @@ const StarRating = ({
             <button
               key={i}
               className="stars-button"
-              onClick={() => setRating(i + 1)}
+              onClick={() => handleRating(i + 1)}
               onMouseEnter={() => setTempRating(i + 1)}
               onMouseLeave={() => setTempRating(0)}
             >
